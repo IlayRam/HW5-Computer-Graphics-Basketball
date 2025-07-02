@@ -1,11 +1,10 @@
-# Computer Graphics - Exercise 5 - WebGL Basketball Court
+# Computer Graphics - Exercise 5 - WebGL Basketball Court - Noam shildekraut, Ilay Ram
 
 ## Getting Started
 1. Clone this repository to your local machine
 2. Make sure you have Node.js installed
-3. Run npm install
-4. Start the local web server: `node index.js`
-5. Open your browser and go to http://localhost:8000
+3. Start the local web server: `node index.js`
+4. Open your browser and go to http://localhost:8000
 
 ## Complete Instructions
 **All detailed instructions, requirements, and specifications can be found in:**
@@ -41,4 +40,3 @@
 ![Picture4](Screenshots/Picture4.png)
 ![Picture5](Screenshots/Picture5.png)
 ![Picture6](Screenshots/Picture6.png)
-
