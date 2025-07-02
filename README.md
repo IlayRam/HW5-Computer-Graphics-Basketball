@@ -3,8 +3,9 @@
 ## Getting Started
 1. Clone this repository to your local machine
 2. Make sure you have Node.js installed
-3. Start the local web server: `node index.js`
-4. Open your browser and go to http://localhost:8000
+3. Run npm install
+4. Start the local web server: `node index.js`
+5. Open your browser and go to http://localhost:8000
 
 ## Complete Instructions
 **All detailed instructions, requirements, and specifications can be found in:**
@@ -32,3 +33,12 @@
   - **C** – VIP seating team 2
   - **V** – Behind the basket team 1 view
   - **B** – Behind the basket team 2 view
+
+## Screenshots
+![Picture1](Screenshots/Picture1.png)
+![Picture2](Screenshots/Picture2.png)
+![Picture3](Screenshots/Picture3.png)
+![Picture4](Screenshots/Picture4.png)
+![Picture5](Screenshots/Picture5.png)
+![Picture6](Screenshots/Picture6.png)
+
