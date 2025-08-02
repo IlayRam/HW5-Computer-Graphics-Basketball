@@ -1,4 +1,4 @@
-# Computer Graphics - Exercise 5 - WebGL Basketball Court - Noam shildekraut, Ilay Ram
+# Computer Graphics - Exercise 6 - WebGL Basketball Court - Noam shildekraut, Ilay Ram
 
 ## Getting Started
 1. Clone this repository to your local machine
@@ -24,14 +24,31 @@
 - Semi-transparent shooter’s square etched into each backboard
 - High-resolution wood texture on the court and realistic orange/black seam texture on the basketball
 - Hoop rims built from torus (tube) geometry instead of simple line segments
-- Score Board
+- Score Board + 24 seconds clock
 - Stadium environment with bleachers on all sides
+- Wind effect with adjustable intensity and direction
+- Game teams statistics display (points, shots attemps, shots made, shooting %, combo streak)
+- Extra 3 points for swishes (shots made without touching the rim) and +1 for every combo streak
+- Ball physics with realistic bounce and spin
+- Ball trail effect
+- Sound effects
+- Leaderboard with local storage
+- Visual effects for successful shots (Burning rim effect) + Sound Effects
+- Messages for successful shots and misses
 - Multiple camera preset positions for fast switching:
   - **Z** – Aerial view
   - **X** – VIP seating team 1 
   - **C** – VIP seating team 2
   - **V** – Behind the basket team 1 view
   - **B** – Behind the basket team 2 view
+- Ball Control using keyboard:
+  - **W/S** - Ball throw power (+/-)
+  - **J/K** - Wind intensity (+/-)
+  - **SPACE** - Shoot the ball
+  - **M** - Choose play mode (Normal, Free-Throw, 60 Seconds Time Challenge)
+  - **R** - Reset ball position, physics, shot power and velocity
+  - **Arrow keys** - Move the ball around the court
+
 
 ## Screenshots
 ![Picture1](Screenshots/Picture1.png)
