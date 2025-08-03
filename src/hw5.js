@@ -1388,6 +1388,8 @@ function showNamePrompt(finalScore) {
   const input = document.getElementById('bb-player-name');
   if (!overlay || !scoreEl) return;
 
+  for (const key in keysPressed) keysPressed[key] = false;
+
   scoreEl.textContent = String(finalScore);
   overlay.style.display = 'flex';
   setTimeout(() => input && input.focus(), 0);
