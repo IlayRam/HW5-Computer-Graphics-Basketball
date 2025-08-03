@@ -323,7 +323,6 @@ function resetToFTLine() {
 }
 
 
-// === Lighting ===
 function initLights() {
   const ambient = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambient);
@@ -331,6 +330,22 @@ function initLights() {
   const dir = new THREE.DirectionalLight(0xffffff, 0.8);
   dir.position.set(10, 20, 15);
   dir.castShadow = true;
+
+  // Increase shadow map resolution
+  dir.shadow.mapSize.width  = 2048;
+  dir.shadow.mapSize.height = 2048;
+
+  // Expand shadow camera bounds
+  dir.shadow.camera.left   = -30;
+  dir.shadow.camera.right  = 30;
+  dir.shadow.camera.top    = 30;
+  dir.shadow.camera.bottom = -30;
+  dir.shadow.camera.near   = 1;
+  dir.shadow.camera.far    = 100;
+
+  // Optional: Visualize shadow camera (for debugging)
+  // scene.add(new THREE.CameraHelper(dir.shadow.camera));
+
   scene.add(dir);
 
   const point = new THREE.PointLight(0xffffff, 0.5, 50);
