@@ -183,6 +183,10 @@ let windIntensity = 0;                   // 0..100 (%)
 let windDir2D     = new THREE.Vector2(1, 0); // +X (to the right) by default
 const MAX_WIND_ACCEL = 5.0;              // m/s^2 at 100% intensity (tune)
 let rimFireFX = { left: null, right: null };
+// === Leaderboard globals ===
+const LB_KEY = 'bb_leaderboard_v1';
+let challengeHasEnded = false; // guard so we don't end twice
+
 
 modeInputs.forEach(radio =>
   radio.addEventListener('change', e => {
@@ -294,6 +298,19 @@ function resetGameForMode() {
   updateStatsDisplay();
 }
 
+function startChallengeRound() {
+  mode = 'challenge';
+  challengeHasEnded = false;
+
+  // zero scores + counters
+  leftStats  = { score: 0, attempts: 0, made: 0, comboCount: 0 };
+  rightStats = { score: 0, attempts: 0, made: 0, comboCount: 0 };
+
+  // reset clock + ball + UI
+  shotClock = 60;
+  resetBall();
+  updateStatsDisplay();     // updates the big 00 / 00 and side stats
+}
 
 function resetToFTLine() {
   const isLeft = (lastShotTeam === 'home');   // left hoop
@@ -852,6 +869,116 @@ function setupUI() {
   updateWindIndicator();
 }
 
+(function installLeaderboardUI(){
+  const css = document.createElement('style');
+  css.textContent = `
+    .bb-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: flex-start;        /* was center */
+      justify-content: center;
+      background: rgba(0,0,0,.7);
+      z-index: 9999;
+      font-family: Arial, sans-serif;
+      padding-top: 40px;              /* NEW: pushes card down slightly */
+    }
+
+    .bb-card {
+      background: #111;
+      color: #fff;
+      width: min(90vw, 420px);
+      max-height: 80vh; 
+      overflow-y: auto; 
+      padding: 18px 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+
+    .bb-card h2 { margin: 0 0 10px; font-size: 20px; }
+    .bb-card p { margin: 6px 0 14px; color: #bbb; }
+    .bb-row { display: flex; gap: 8px; }
+    .bb-input {
+      flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #333;
+      background: #161616; color: #fff; outline: none; font-size: 14px;
+    }
+    .bb-btn {
+      padding: 10px 14px; border-radius: 8px; border: 0; cursor: pointer;
+    }
+    .bb-btn-primary { background: #27ae60; color: white; }
+    .bb-btn-ghost { background: #222; color: #ddd; }
+    .bb-list {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      max-height: 300px;       /* fixed height instead of 50vh */
+      overflow-y: auto;        /* only vertical scroll */
+      list-style-position: inside;
+    }
+
+    .bb-list li {
+      margin: 6px 0;
+      padding: 2px 0;
+      font-size: 14px;
+      color: #ddd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bb-small { font-size: 12px; color: #888; }
+  `;
+  document.head.appendChild(css);
+
+  const nameOverlay = document.createElement('div');
+  nameOverlay.id = 'bb-name-overlay';
+  nameOverlay.className = 'bb-overlay';
+  nameOverlay.innerHTML = `
+    <div class="bb-card">
+      <h2>Time’s up!</h2>
+      <p>Your score: <strong id="bb-final-score">0</strong></p>
+      <div class="bb-row">
+        <input id="bb-player-name" class="bb-input" placeholder="Your name" maxlength="20" />
+        <button id="bb-submit-score" class="bb-btn bb-btn-primary">Save</button>
+      </div>
+      <div class="bb-small" style="margin-top:8px;">Press Enter to submit</div>
+    </div>`;
+  document.body.appendChild(nameOverlay);
+
+  const boardOverlay = document.createElement('div');
+  boardOverlay.id = 'bb-leaderboard-overlay';
+  boardOverlay.className = 'bb-overlay';
+  boardOverlay.innerHTML = `
+    <div class="bb-card">
+      <h2>Leaderboard</h2>
+      <ol id="bb-leaderboard" class="bb-list"></ol>
+      <div class="bb-row" style="margin-top:12px; justify-content:flex-end">
+        <button id="bb-close-leaderboard" class="bb-btn bb-btn-ghost">Close</button>
+      </div>
+      <div class="bb-small" style="margin-top:6px;">Top 20 saved locally on this device</div>
+    </div>`;
+  document.body.appendChild(boardOverlay);
+
+  // Wire up actions
+  const input = document.getElementById('bb-player-name');
+  const submit = document.getElementById('bb-submit-score');
+
+  const submitHandler = () => {
+    const name = (input.value || '').trim() || 'Anonymous';
+    const scoreText = document.getElementById('bb-final-score').textContent || '0';
+    const score = parseInt(scoreText, 10) || 0;
+    const list = saveScore(name, score);
+    input.value = '';
+    nameOverlay.style.display = 'none';
+    renderLeaderboard(list);
+    document.getElementById('bb-leaderboard-overlay').style.display = 'flex';
+  };
+  submit.addEventListener('click', submitHandler);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitHandler(); });
+
+  document.getElementById('bb-close-leaderboard').addEventListener('click', () => {
+    document.getElementById('bb-leaderboard-overlay').style.display = 'none';
+    startChallengeRound(); 
+  });  
+})();
 
 function showShotMessage(text, team, color = '#00ff00') {
   const msg = document.getElementById('shot-message');
@@ -1206,6 +1333,53 @@ function handlePoleCollision(ballGroup, ballVelocity, ballRadius, restitution) {
   });
 }
 
+function getLeaderboard() {
+  try { return JSON.parse(localStorage.getItem(LB_KEY) || '[]'); }
+  catch { return []; }
+}
+
+function saveScore(name, score) {
+  const list = getLeaderboard();
+  list.push({ name, score, ts: Date.now() });
+  // Sort by score desc, then earlier timestamp first
+  list.sort((a, b) => (b.score - a.score) || (a.ts - b.ts));
+  const trimmed = list.slice(0, 20);
+  localStorage.setItem(LB_KEY, JSON.stringify(trimmed));
+  return trimmed;
+}
+
+function renderLeaderboard(list = getLeaderboard()) {
+  const ol = document.getElementById('bb-leaderboard');
+  if (!ol) return;
+  ol.innerHTML = '';
+  list.forEach((row, i) => {
+    const li = document.createElement('li');
+    const date = new Date(row.ts);
+    li.textContent = `${row.name} — ${row.score}  (${date.toLocaleDateString()} ${date.toLocaleTimeString()})`;
+    ol.appendChild(li);
+  });
+}
+
+function showNamePrompt(finalScore) {
+  const overlay = document.getElementById('bb-name-overlay');
+  const scoreEl = document.getElementById('bb-final-score');
+  const input = document.getElementById('bb-player-name');
+  if (!overlay || !scoreEl) return;
+
+  scoreEl.textContent = String(finalScore);
+  overlay.style.display = 'flex';
+  setTimeout(() => input && input.focus(), 0);
+}
+
+// Call when the 60s challenge ends
+function endChallenge(finalScore) {
+  shotClock = 0;            // clamp for display/UI
+  challengeHasEnded = true; // guard is already set before call; OK to set again
+  showNamePrompt(finalScore);
+  leftStats.score = 0; rightStats.score = 0;
+  resetBall();
+}
+
 suppressMiss = false;
 
 function animate() {
@@ -1219,32 +1393,43 @@ function animate() {
 
   const frameDt = 0.016;
 
-  if (mode !== 'free') {
-    shotClock -= frameDt;
-    if (shotClock <= 0) {
-      if (mode === 'challenge') {
-        goText.innerText = `GAME OVER – WINNER: ${leftStats.score > rightStats.score ? 'HOME' : 'GUEST'}`;
-        gameOverEl.style.display = 'flex';
-        return;
-      } else {
-        resetBall();
-        shotClock = 24;
-
-        const msg = document.getElementById('shot-message');
-        msg.innerText = 'SHOT CLOCK VIOLATION IS CALLED!';
-        msg.style.color = '#ff4444';
-        msg.style.fontSize = '48px';
-        msg.style.left = '50%';
-        msg.style.top = '50%';
-        msg.style.transform = 'translate(-50%, -50%)';
-        msg.style.animationDuration = '4s';
-        msg.classList.remove('show');
-        void msg.offsetWidth;
-        msg.classList.add('show');
-        return;
+  if (mode === 'challenge') {
+    // Only tick while the round is active
+    if (!challengeHasEnded) {
+      shotClock = Math.max(0, shotClock - frameDt);
+      if (shotClock === 0) {
+        // finalize once
+        const home  = leftStats?.score  || 0;
+        const guest = rightStats?.score || 0;
+        const finalScore = home + guest;
+  
+        challengeHasEnded = true; // guard immediately
+        endChallenge(finalScore); // shows name entry + leaderboard
+        return;                   // stop this frame’s post-end logic
       }
     }
-  }
+  } else if (mode !== 'free') {
+    // your regular 24s shot clock logic
+    shotClock -= frameDt;
+    if (shotClock <= 0) {
+      resetBall();
+      shotClock = 24;
+  
+      const msg = document.getElementById('shot-message');
+      msg.innerText = 'SHOT CLOCK VIOLATION IS CALLED!';
+      msg.style.color = '#ff4444';
+      msg.style.fontSize = '48px';
+      msg.style.left = '50%';
+      msg.style.top = '50%';
+      msg.style.transform = 'translate(-50%, -50%)';
+      msg.style.animationDuration = '4s';
+      msg.classList.remove('show');
+      void msg.offsetWidth;
+      msg.classList.add('show');
+      return;
+    }
+  }  
+  
 
   const secs = Math.ceil(shotClock);
   document.getElementById('game-clock').innerText =
