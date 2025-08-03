@@ -32,7 +32,7 @@
 - Ball physics with realistic bounce and spin
 - Ball trail effect
 - Sound effects
-- Leaderboard with local storage
+- Leaderboard with local storage for time challenge mode
 - Visual effects for successful shots (Burning rim effect) + Sound Effects
 - Messages for successful shots and misses
 - Multiple camera preset positions for fast switching:
