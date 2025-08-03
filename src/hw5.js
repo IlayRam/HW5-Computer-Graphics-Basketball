@@ -846,6 +846,7 @@ function setupUI() {
 
   // === Global Listeners ===
   document.addEventListener('keydown', e => {
+    if (uiIsOpen()) return;
     keysPressed[e.key.toLowerCase()] = true;
     handleKeyDown(e);
   });
@@ -858,6 +859,7 @@ function setupUI() {
 
   document.getElementById('mode-li').addEventListener('click', openModal);
   window.addEventListener('keydown', e => {
+    if (uiIsOpen()) return;
     if (e.key.toLowerCase() === 'm') {
       e.preventDefault();
       openModal();
@@ -959,6 +961,11 @@ function setupUI() {
 
   // Wire up actions
   const input = document.getElementById('bb-player-name');
+  ['keydown', 'keyup', 'keypress'].forEach(type => {
+    input.addEventListener(type, e => {
+      e.stopPropagation();
+    }, { capture: true });
+  });
   const submit = document.getElementById('bb-submit-score');
 
   const submitHandler = () => {
@@ -1378,6 +1385,12 @@ function endChallenge(finalScore) {
   showNamePrompt(finalScore);
   leftStats.score = 0; rightStats.score = 0;
   resetBall();
+}
+
+function uiIsOpen() {
+  const n = document.getElementById('bb-name-overlay');
+  const b = document.getElementById('bb-leaderboard-overlay');
+  return (n && n.style.display === 'flex') || (b && b.style.display === 'flex');
 }
 
 suppressMiss = false;
