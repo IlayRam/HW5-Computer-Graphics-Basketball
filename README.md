@@ -19,7 +19,7 @@
 - Run the server with: `node index.js`
 - Access at http://localhost:8000 in your web browser
 
-## Additional Features
+## Additional Features - all bonus features are implemented
 - Free-throw lines, three-point lines, center circle.
 - Semi-transparent shooter’s square etched into each backboard
 - High-resolution wood texture on the court and realistic orange/black seam texture on the basketball
