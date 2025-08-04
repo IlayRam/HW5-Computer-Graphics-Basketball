@@ -49,27 +49,35 @@
   - **R** - Reset ball position, physics, shot power and velocity
   - **Arrow keys** - Move the ball around the court
 
-## Screenshots & Demonstration Videos
 
-### Demonstration Videos
+## Screenshots
 
-- **Moving Around the Court**  
-  [![moving around the court](Screenshots/Picture1.png)](Screenshots/moving around the court.mp4)
+<!-- ——— Demo videos (2×2) ——— -->
+<p align="center">
+  <video width="48%" controls muted>
+    <source src="Screenshots/moving%20around%20the%20court.mp4" type="video/mp4">
+  </video>
+  <video width="48%" controls muted>
+    <source src="Screenshots/successful%20shot.mp4" type="video/mp4">
+  </video>
+</p>
+<p align="center">
+  <video width="48%" controls muted>
+    <source src="Screenshots/failed%20shot.mp4" type="video/mp4">
+  </video>
+  <video width="48%" controls muted>
+    <source src="Screenshots/wind%2Btime%20violation.mp4" type="video/mp4">
+  </video>
+</p>
 
-- **Successful Shot**  
-  [![successful shot](Screenshots/Picture3.png)](Screenshots/successful shot.mp4)
-
-- **Failed Shot**  
-  [![failed shot](Screenshots/Picture4.png)](Screenshots/failed shot.mp4)
-
-- **Wind + Time Violation**  
-  [![wind and time violation](Screenshots/Picture6.png)](Screenshots/wind+time violation.mp4)
-
-### Court Design and Features
-
-![Picture1](Screenshots/Picture1.png)  
-![Picture2](Screenshots/Picture2.png)  
-![Picture3](Screenshots/Picture3.png)  
-![Picture4](Screenshots/Picture4.png)  
-![Picture5](Screenshots/Picture5.png)  
-![Picture6](Screenshots/Picture6.png)
+<!-- ——— Image grid (3×2) ——— -->
+<p align="center">
+  <img src="Screenshots/Picture1.png" width="32%" />
+  <img src="Screenshots/Picture2.png" width="32%" />
+  <img src="Screenshots/Picture3.png" width="32%" />
+</p>
+<p align="center">
+  <img src="Screenshots/Picture4.png" width="32%" />
+  <img src="Screenshots/Picture5.png" width="32%" />
+  <img src="Screenshots/Picture6.png" width="32%" />
+</p>
