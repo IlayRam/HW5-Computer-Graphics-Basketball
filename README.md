@@ -50,7 +50,7 @@
   - **Arrow keys** - Move the ball around the court
 
 
-## Screenshots
+## Videos (click thumbnails to download on GitHub)
 
 <!-- Demos (click thumbnails to play on GitHub) -->
 <p align="center">
@@ -69,6 +69,8 @@
     <img src="Screenshots/wind.png" width="49%" alt="Wind + time violation ▶"/>
   </a>
 </p>
+
+## Screenshots
 
 <!-- Screenshots (3 × 2 grid) -->
 <p align="center">
