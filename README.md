@@ -54,19 +54,23 @@
 
 <!-- Demos (click thumbnails to play on GitHub) -->
 <p align="center">
-  <a href="Screenshots/moving%20around%20the%20court.mp4">
-    <img src="Screenshots/rtctn.png" width="49%" alt="Moving around the court ▶"/>
+  <a href="Screenshots/moving%20around%20the%20court.mp4" style="display:inline-block;width:49%;text-decoration:none;">
+    <img src="Screenshots/rtctn.png" width="100%" alt="Moving around the court ▶"/>
+    <br/><sub><b>Moving around the court</b></sub>
   </a>
-  <a href="Screenshots/successful%20shot.mp4">
-    <img src="Screenshots/successtn.png" width="49%" alt="Successful shot ▶"/>
+  <a href="Screenshots/successful%20shot.mp4" style="display:inline-block;width:49%;text-decoration:none;">
+    <img src="Screenshots/successtn.png" width="100%" alt="Successful shot ▶"/>
+    <br/><sub><b>Successful shot</b></sub>
   </a>
 </p>
 <p align="center">
-  <a href="Screenshots/failed%20shot.mp4">
-    <img src="Screenshots/failedshottn.png" width="49%" alt="Failed shot ▶"/>
+  <a href="Screenshots/failed%20shot.mp4" style="display:inline-block;width:49%;text-decoration:none;">
+    <img src="Screenshots/failedshottn.png" width="100%" alt="Failed shot ▶"/>
+    <br/><sub><b>Failed shot</b></sub>
   </a>
-  <a href="Screenshots/wind%2Btime%20violation.mp4">
-    <img src="Screenshots/wind.png" width="49%" alt="Wind + time violation ▶"/>
+  <a href="Screenshots/wind%2Btime%20violation.mp4" style="display:inline-block;width:49%;text-decoration:none;">
+    <img src="Screenshots/wind.png" width="100%" alt="Wind + time violation ▶"/>
+    <br/><sub><b>Wind + time violation</b></sub>
   </a>
 </p>
 
