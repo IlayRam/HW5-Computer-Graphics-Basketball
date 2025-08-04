@@ -52,32 +52,32 @@
 
 ## Screenshots
 
-<!-- ——— Demo videos (2×2) ——— -->
+<!-- Demos (click thumbnails to play on GitHub) -->
 <p align="center">
-  <video width="48%" controls muted>
-    <source src="Screenshots/moving%20around%20the%20court.mp4" type="video/mp4">
-  </video>
-  <video width="48%" controls muted>
-    <source src="Screenshots/successful%20shot.mp4" type="video/mp4">
-  </video>
+  <a href="Screenshots/moving%20around%20the%20court.mp4">
+    <img src="Screenshots/rtctn.png" width="49%" alt="Moving around the court ▶"/>
+  </a>
+  <a href="Screenshots/successful%20shot.mp4">
+    <img src="Screenshots/successtn.png" width="49%" alt="Successful shot ▶"/>
+  </a>
 </p>
 <p align="center">
-  <video width="48%" controls muted>
-    <source src="Screenshots/failed%20shot.mp4" type="video/mp4">
-  </video>
-  <video width="48%" controls muted>
-    <source src="Screenshots/wind%2Btime%20violation.mp4" type="video/mp4">
-  </video>
+  <a href="Screenshots/failed%20shot.mp4">
+    <img src="Screenshots/failedshottn.png" width="49%" alt="Failed shot ▶"/>
+  </a>
+  <a href="Screenshots/wind%2Btime%20violation.mp4">
+    <img src="Screenshots/wind.png" width="49%" alt="Wind + time violation ▶"/>
+  </a>
 </p>
 
-<!-- ——— Image grid (3×2) ——— -->
+<!-- Screenshots (3 × 2 grid) -->
 <p align="center">
-  <img src="Screenshots/Picture1.png" width="32%" />
-  <img src="Screenshots/Picture2.png" width="32%" />
-  <img src="Screenshots/Picture3.png" width="32%" />
+  <img src="Screenshots/Picture1.png" width="32%" alt="Screenshot 1"/>
+  <img src="Screenshots/Picture2.png" width="32%" alt="Screenshot 2"/>
+  <img src="Screenshots/Picture3.png" width="32%" alt="Screenshot 3"/>
 </p>
 <p align="center">
-  <img src="Screenshots/Picture4.png" width="32%" />
-  <img src="Screenshots/Picture5.png" width="32%" />
-  <img src="Screenshots/Picture6.png" width="32%" />
+  <img src="Screenshots/Picture4.png" width="32%" alt="Screenshot 4"/>
+  <img src="Screenshots/Picture5.png" width="32%" alt="Screenshot 5"/>
+  <img src="Screenshots/Picture6.png" width="32%" alt="Screenshot 6"/>
 </p>
